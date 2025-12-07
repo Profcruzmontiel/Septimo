@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Factory Method en HTML (Frontend)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --accent: #22c55e;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+    }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: linear-gradient(180deg, var(--bg), #060b1b);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      width: min(720px, 92vw);
+      background: linear-gradient(180deg, var(--panel), #0b1222);
+      border: 1px solid #1f2937;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+    h1 { margin: 0 0 8px; font-size: 1.6rem; }
+    p { color: var(--muted); margin: 4px 0 16px; }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .btn {
+      background: #0b162a;
+      border: 1px solid #22304a;
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.06s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn:hover { border-color: #33518a; box-shadow: 0 8px 18px rgba(0,0,0,0.25); }
+    .btn:active { transform: translateY(1px); }
+    .accent { border-color: var(--accent); color: #d1fae5; }
+    .output {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px dashed #32435f;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.03);
+      min-height: 48px;
+    }
+    code { color: #93c5fd; }
+    .small { font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Patrón Factory Method (versión sencilla en frontend)</h1>
+    <p class="small">
+      <strong>Idea:</strong> Un <em>Factory</em> decide qué controlador crear según el tipo seleccionado.
+      Así se organiza mejor la lógica y es fácil agregar nuevos tipos sin tocar el resto del código.
+    </p>
+
+    <div class="grid">
+      <button class="btn accent" data-type="users">Controlador de usuarios</button>
+      <button class="btn accent" data-type="products">Controlador de productos</button>
+      <button class="btn" data-type="orders">Controlador de pedidos (nuevo)</button>
+      <button class="btn" data-type="unknown">Tipo desconocido</button>
+    </div>
+
+    <div class="output" id="output">Salida del controlador aquí…</div>
+
+    <p class="small">
+      <strong>Patrón aplicado:</strong> <code>ControllerFactory.getController(type)</code> devuelve una instancia acorde al
+      <em>type</em>. Cada controlador implementa <code>handle()</code> y puede tener su propia lógica.
+    </p>
+  </main>
+
+  <script>
+    // Controladores simples con la misma interfaz (handle)
+    class UserController {
+      handle() {
+        return "Usuarios: listar, crear, actualizar, eliminar.";
+      }
+    }
+
+    class ProductController {
+      handle() {
+        return "Productos: catálogo, precios, stock.";
+      }
+    }
+
+    class OrderController {
+      handle() {
+        return "Pedidos: carrito, checkout, historial.";
+      }
+    }
+
+    // Factory Method: decide qué instancia crear según 'type'
+    class ControllerFactory {
+      static getController(type) {
+        switch (type) {
+          case "users": return new UserController();
+          case "products": return new ProductController();
+          case "orders": return new OrderController();
+          default:
+            throw new Error("Tipo de controlador no válido: " + type);
+        }
+      }
+    }
+
+    // UI: manejar clics y mostrar la salida del controlador
+    const output = document.getElementById("output");
+    document.querySelectorAll("button[data-type]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const type = btn.getAttribute("data-type");
+        try {
+          const controller = ControllerFactory.getController(type);
+          const result = controller.handle();
+          output.textContent = `Factory devolvió '${type}': ${result}`;
+        } catch (err) {
+          output.textContent = "Error: " + err.message;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

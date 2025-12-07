@@ -1,0 +1,19 @@
+<section>
+  <h2>Editar elemento</h2>
+
+  <form method="POST" action="/items/<%= item.id %>?_method=PUT" class="card">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+
+    <label>
+      Título
+      <input name="title" value="<%= item.title %>" required>
+    </label>
+
+    <label>
+      Descripción
+      <textarea name="description" rows="3"><%= item.description %></textarea>
+    </label>
+
+    <button class="btn primary" type="submit">Guardar</button>
+  </form>
+</section>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= title %> · Proyecto Clase</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/" class="logo">Proyecto</a>
+      <ul>
+        <% if (user) { %>
+          <li><a href="/dashboard">Panel</a></li>
+          <li><a href="/items">CRUD</a></li>
+          <li>
+            <form action="/logout" method="POST">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn-link">Salir</button>
+            </form>
+          </li>
+        <% } else { %>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/register">Registro</a></li>
+        <% } %>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <%- include('partials/flash') %>
+    <%- body %>
+  </main>
+
+  <footer class="site-footer">
+    <small>&copy; <%= new Date().getFullYear() %> Proyecto Clase</small>
+  </footer>
+</body>
+</html>

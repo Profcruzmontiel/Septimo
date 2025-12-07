@@ -1,0 +1,83 @@
+:root {
+  /* Psicología del color */
+  --primary: #2563eb;   /* Azul: confianza y seguridad */
+  --primary-dark: #1e40af;
+  --success: #16a34a;   /* Verde: éxito y confirmación */
+  --danger: #dc2626;    /* Rojo: errores/advertencias (usar con moderación) */
+  --bg: #f8fafc;        /* Fondo claro: limpieza y foco */
+  --text: #0f172a;      /* Texto oscuro para legibilidad */
+  --muted: #64748b;     /* Detalles */
+  --card: #ffffff;
+  --border: #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Noto Sans";
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.site-header, .site-footer {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.nav ul { list-style: none; display: flex; gap: 1rem; margin: 0; padding: 0; }
+.nav a { color: var(--text); text-decoration: none; }
+.btn-link { background: none; border: none; color: var(--text); cursor: pointer; }
+
+.container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+label { display: block; margin-bottom: 0.75rem; }
+input, textarea, select, button {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+input:focus, textarea:focus { outline: 2px solid var(--primary); border-color: var(--primary); }
+
+.btn {
+  display: inline-block;
+  width: auto;
+  background: var(--muted);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+.btn.primary { background: var(--primary); }
+.btn.primary:hover { background: var(--primary-dark); }
+.btn.danger { background: var(--danger); }
+
+.section-header { display: flex; justify-content: space-between; align-items: center; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+th, td { border: 1px solid var(--border); padding: 0.6rem; text-align: left; }
+thead { background: #f1f5f9; }
+
+.alert {
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+.alert.error { background: #fee2e2; color: #7f1d1d; }
+.alert.success { background: #dcfce7; color: #14532d; }

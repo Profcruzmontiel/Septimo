@@ -1,0 +1,31 @@
+<section>
+  <header class="section-header">
+    <h2>Mis elementos</h2>
+    <a class="btn primary" href="/items/new">Nuevo</a>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% items.forEach(i => { %>
+        <tr>
+          <td><%= i.title %></td>
+          <td><%= i.description %></td>
+          <td class="actions">
+            <a class="btn" href="/items/<%= i.id %>/edit">Editar</a>
+            <form method="POST" action="/items/<%= i.id %>?_method=DELETE" style="display:inline">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <button class="btn danger" type="submit">Eliminar</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</section>
